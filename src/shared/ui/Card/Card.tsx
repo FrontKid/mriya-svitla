@@ -31,7 +31,6 @@ const Card: FC<TCardProps> = ({ product }) => {
       <div className="relative">
         {loading && (
           <div className="absolute inset-0 flex animate-pulse items-center justify-center bg-gray-200">
-            {/* Спиннер */}
             <svg
               className="h-6 w-6 animate-spin text-gray-400"
               fill="none"
@@ -64,6 +63,7 @@ const Card: FC<TCardProps> = ({ product }) => {
           alt={name}
           src={photoUrl}
           width={300}
+          loading="lazy"
           height={300}
           onLoad={() => setLoading(false)}
         />
