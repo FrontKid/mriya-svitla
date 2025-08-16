@@ -3,7 +3,9 @@ import { ProductList } from "../ui/ProductList";
 import { Filters } from "@/widgets/product-list/ui/Filters";
 import { ISearchParams } from "@/shared/lib/types/tSearchParams";
 import { ICategories } from "@/shared/lib/types/tCategories";
-import { getProducts } from "@/shared/lib/helpers";
+import { fetchProducts } from "@/shared/lib/helpers";
+import { AppLink } from "@/shared/ui/Button";
+import { EContacts } from "@/shared/lib/contacts";
 
 interface IProductListWrapperProps {
   searchParams: Promise<ISearchParams>;
@@ -11,9 +13,12 @@ interface IProductListWrapperProps {
 const ProductListWrapper = async ({
   searchParams,
 }: IProductListWrapperProps) => {
-  const { yml_catalog } = await getProducts();
-  const { category } = yml_catalog.categories;
+  const { productsData, error } = await fetchProducts();
+
+  const category = !error ? productsData.yml_catalog.categories.category : [];
+
   const searchParam = await searchParams;
+
   const {
     query = "",
     categoryId = "",
@@ -35,7 +40,24 @@ const ProductListWrapper = async ({
   return (
     <>
       <Filters categories={preparedCategories} />
-      <ProductList products={yml_catalog.items.item} options={options} />
+
+      {!error && (
+        <ProductList
+          products={productsData?.yml_catalog.items.item}
+          options={options}
+        />
+      )}
+
+      {error && (
+        <div className="flex flex-col items-center justify-center py-10">
+          <h2 className="text-subtitle pb-5 font-bold">
+            Сейчас товары недоступны, попробуйте позже!
+          </h2>
+          <AppLink href={`viber://${EContacts.PHONE_NUMBER}`} type="btn">
+            Обратитесь к поставщику
+          </AppLink>
+        </div>
+      )}
     </>
   );
 };

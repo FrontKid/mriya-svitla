@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { EContacts } from "@/shared/lib/contacts";
 import { formatPhone } from "@/shared/lib/helpers";
+import { AppLink } from "@/shared/ui/Button";
 
 const Header = () => {
   return (
@@ -28,12 +29,9 @@ const Header = () => {
           <Link className="linkStyle" href="#contacts">
             Контакты
           </Link>
-          <Link
-            className="border-text rounded-xl border border-solid px-3 py-2 font-bold"
-            href={`tel:${EContacts.PHONE_NUMBER}`}
-          >
+          <AppLink type="btn" href={`tel:${EContacts.PHONE_NUMBER}`}>
             {formatPhone(EContacts.PHONE_NUMBER)}
-          </Link>
+          </AppLink>
         </nav>
         <button
           className="border-line hidden rounded-lg border border-solid bg-transparent px-2.5 py-1.5"

@@ -3,6 +3,7 @@ import Image from "next/image";
 import clsx from "clsx";
 
 import { ImageSceleton } from "../ImageSceleton";
+import { Tag } from "../Tag";
 
 import { IProduct } from "@/shared/lib/types/tProduct";
 import { AppLink } from "@/shared/ui/Button";
@@ -59,28 +60,10 @@ const Card: FC<TCardProps> = ({ product }) => {
       <span className="text-muted text-md">{vendor}</span>
       <h2 className="text-subtitle m-0 font-bold">{name}</h2>
       <div className="flex flex-wrap gap-1.5">
-        {power && (
-          <span className="bg-card-product border-line rounded-[10px] border border-solid px-2 py-0.5 text-xs text-gray-700">
-            {power}
-          </span>
-        )}
-        {colorTemperature && (
-          <span className="bg-card-product border-line rounded-[10px] border border-solid px-2 py-0.5 text-xs text-gray-700">
-            {colorTemperature}
-          </span>
-        )}
-
-        {socket && (
-          <span className="bg-card-product border-line rounded-[10px] border border-solid px-2 py-0.5 text-xs text-gray-700">
-            {socket}
-          </span>
-        )}
-
-        {voltage && (
-          <span className="bg-card-product border-line rounded-[10px] border border-solid px-2 py-0.5 text-xs text-gray-700">
-            {voltage}
-          </span>
-        )}
+        {power && <Tag tagName={power} />}
+        {colorTemperature && <Tag tagName={colorTemperature} />}
+        {socket && <Tag tagName={socket} />}
+        {voltage && <Tag tagName={voltage} />}
       </div>
       <span className="text-lg font-extrabold">{`${price} \u20B4`}</span>
       <div className="flex items-center gap-3">
@@ -89,7 +72,7 @@ const Card: FC<TCardProps> = ({ product }) => {
           className="flex-2 text-center"
           href={`viber://${EContacts.PHONE_NUMBER}`}
         >
-          {available === "false" ? "Узнать о наличии" : "Запросить цену"}
+          {available === "false" ? "Узнать о наличии" : "Заказать"}
         </AppLink>
         <AppLink
           className="flex-1 text-center"

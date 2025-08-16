@@ -13,7 +13,7 @@ type TFilterByMinMaxProps = object;
 
 const FilterByMinMax: FC<TFilterByMinMaxProps> = () => {
   const pathname = usePathname();
-  const router = useRouter();
+  const { replace } = useRouter();
   const searchParams = useSearchParams();
 
   const handleMin = useDebouncedCallback((minCostIncome: string) => {
@@ -21,7 +21,7 @@ const FilterByMinMax: FC<TFilterByMinMaxProps> = () => {
       minMaxConfig.PARAM_NAME_MIN,
       minCostIncome,
       searchParams,
-      router,
+      replace,
       pathname,
     );
   }, globalConfig.DEBOUNCE_DELAY_MS);
@@ -31,7 +31,7 @@ const FilterByMinMax: FC<TFilterByMinMaxProps> = () => {
       minMaxConfig.PARAM_NAME_MAX,
       maxCostIncome,
       searchParams,
-      router,
+      replace,
       pathname,
     );
   }, globalConfig.DEBOUNCE_DELAY_MS);

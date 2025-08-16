@@ -1,6 +1,6 @@
 "use client";
 import { ArrowDown } from "lucide-react";
-import { FC, Suspense, useState } from "react";
+import { FC, Suspense, useMemo, useState } from "react";
 import clsx from "clsx";
 
 import { IProduct } from "@/shared/lib/types/tProduct";
@@ -58,11 +58,10 @@ const ProductList: FC<TProductListProps> = ({ products, options }) => {
             <Card key={product.model} product={product} />
           ))}
           {shouldShowMore && (
-            <div className="from-bg to-bg/50 text-text absolute right-0 bottom-0 left-0 flex h-[150px] w-full items-center justify-center rounded-2xl bg-gradient-to-t text-[20px] font-bold backdrop-blur-[1px]">
+            <div className="gradient-up absolute right-0 bottom-0 left-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
               <AppButton
-                type="btn"
                 onClick={handleShowMore}
-                className="relative pr-12"
+                className="text-subtitle hover:text-bg relative mb-12 rounded-2xl pr-10 text-green-800 transition-colors duration-300 hover:bg-green-800"
               >
                 Показать еще
                 <ArrowDown

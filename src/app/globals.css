@@ -29,11 +29,11 @@ body {
 }
 
 .btn {
-  @apply text-white no-underline font-semibold inline-block  rounded-2xl bg-black;
+  @apply text-text no-underline font-semibold inline-block  rounded-2xl border border-text hover:bg-text hover:text-bg transition-colors duration-300;
 }
 
 .btn-outline {
-  @apply border border-text text-text no-underline font-semibold inline-block px-4.5 py-3 rounded-2xl border-solid;
+  @apply text-white no-underline font-semibold inline-block px-4.5 py-3 rounded-2xl duration-300 bg-green-800/90 hover:border-green-800 hover:border border hover:bg-white hover:text-text transition-colors;
 }
 
 .card {
@@ -58,6 +58,10 @@ body {
   max-width: var(--container-min);
   margin-inline: auto;
   padding-inline: var(--container-padding);
+}
+
+.gradient-up {
+  background: linear-gradient(to top, var(--color-bg) 30%, rgba(255, 255, 255, 0) 100%);
 }
 
 @keyframes shimmer {

@@ -10,11 +10,11 @@ const brandCatigory = [{ id: "1", name: "Feron", slug: "feron" }];
 
 const ProductBrand = () => {
   const pathname = usePathname();
-  const router = useRouter();
+  const { replace } = useRouter();
   const searchParams = useSearchParams();
 
   const handleBrand = useDebouncedCallback((brand: string) => {
-    updateQueryParam("brand", brand, searchParams, router, pathname);
+    updateQueryParam("brand", brand, searchParams, replace, pathname);
   }, globalConfig.DEBOUNCE_DELAY_MS);
 
   return (

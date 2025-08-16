@@ -15,7 +15,7 @@ interface IProductCategoryProps {
 
 const ProductCategory: FC<IProductCategoryProps> = ({ categories }) => {
   const pathname = usePathname();
-  const router = useRouter();
+  const { replace } = useRouter();
   const searchParams = useSearchParams();
 
   const handleCategory = useDebouncedCallback((category: string) => {
@@ -23,7 +23,7 @@ const ProductCategory: FC<IProductCategoryProps> = ({ categories }) => {
       productCategoryConfig.PARAM_NAME,
       category,
       searchParams,
-      router,
+      replace,
       pathname,
     );
   }, globalConfig.DEBOUNCE_DELAY_MS);

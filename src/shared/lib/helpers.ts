@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { XMLParser } from "fast-xml-parser";
 
+import { globalConfig } from "./globalConfig";
+
 import { IProduct, IProductParam } from "@/shared/lib/types/tProduct";
 
 interface IParams {
@@ -72,7 +74,7 @@ const updateQueryParam = (
   paramName: string,
   value: string | null,
   searchParams: URLSearchParams,
-  router: any,
+  replace: any,
   pathname: string,
 ) => {
   const params = new URLSearchParams(searchParams);
@@ -83,7 +85,7 @@ const updateQueryParam = (
     params.delete(paramName);
   }
 
-  router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  replace(`${pathname}?${params.toString()}`, { scroll: false });
 };
 
 const isProductMatch = (query: string, params: IParams) => {
@@ -149,26 +151,47 @@ const getPreparedProducts = (products: IProduct[], option: IOptions) => {
   return filteredProducts;
 };
 
-let cachedData: any = null; // кэш для хранения результатов
+let cachedData: { productsData: IProduct; error: Error | null } | null = null;
 
-export const getProducts = async () => {
-  if (cachedData) return cachedData; // если уже загрузили — возвращаем
+const fetchProducts = async () => {
+  if (cachedData) return cachedData;
 
-  const data = await fetch(
-    "https://feron.ua/system/storage/download/prom_ua_ru.xml",
-  );
-  const xmlText = await data.text();
+  let error = null;
+  let data = null;
+  let productsData = null;
 
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    textNodeName: "text",
-    attributeNamePrefix: "",
-  });
+  try {
+    data = await fetch(
+      "https://feron.ua/system/storage/download/prom_ua_ru.xml",
+      // { next: { revalidate: globalConfig.PRODUCTS_UPDATE_S } },
+    );
 
-  const productsData = parser.parse(xmlText);
+    if (!data.ok) {
+      throw new Error(`Ошибка загрузки: ${data.status}`);
+    }
 
-  cachedData = productsData; // сохраняем результат в кэш
-  return productsData;
+    const xmlText = await data?.text();
+
+    const parser = new XMLParser({
+      ignoreAttributes: false,
+      textNodeName: "text",
+      attributeNamePrefix: "",
+    });
+
+    productsData = parser.parse(xmlText);
+    cachedData = { productsData, error };
+
+    return { productsData, error };
+  } catch (errorIncome) {
+    error = errorIncome;
+    return { productsData: null, error };
+  }
 };
 
-export { formatPhone, parseProductName, updateQueryParam, getPreparedProducts };
+export {
+  formatPhone,
+  parseProductName,
+  fetchProducts,
+  updateQueryParam,
+  getPreparedProducts,
+};
