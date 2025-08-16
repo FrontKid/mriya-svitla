@@ -1,3 +1,61 @@
 @import "tailwindcss";
 
-/* use @theme here */
+@theme {
+  --container-max: 1120px;
+  --container-min: 1100px;
+  --container-padding: 10px;
+  --color-bg: #fafafa;
+  --color-card: #ffffff;
+  --color-card-product: #f3f4f6;
+  --color-text: #111827;
+  --color-muted: #6b7280;
+  --color-line: #e5e7eb;
+  --color-accent: #000;
+  --text-title: 40px;
+  --text-subtitle: 18px;
+  --text-md: 13px;
+  --backdrop-saturate-header: 180%;
+}
+
+body {
+  @apply text-text;
+}
+
+.linkStyle {
+  @apply relative no-underline  transition-colors
+    after:content-[''] after:absolute after:left-0 after:bottom-0
+    after:w-0 after:h-[2px] after:bg-text after:transition-all after:duration-300
+    hover:after:w-full;
+}
+
+.btn {
+  @apply text-white no-underline font-semibold inline-block  rounded-2xl bg-black;
+}
+
+.btn-outline {
+  @apply border border-text text-text no-underline font-semibold inline-block px-4.5 py-3 rounded-2xl border-solid;
+}
+
+.card {
+  @apply border bg-card border-line p-4 rounded-2xl border-solid;
+}
+
+.card-product {
+  @apply border border-line bg-white flex flex-col justify-between gap-2.5 p-3 rounded-2xl border-solid;
+}
+
+.field {
+  @apply border border-line w-full px-3 py-2.5 rounded-xl border-solid;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.section-container {
+  max-width: var(--container-min);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}

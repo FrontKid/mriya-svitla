@@ -1,15 +1,9 @@
-import { Syne, Urbanist } from "next/font/google";
+import { Inter } from "next/font/google";
 
-const syne = Syne({
-  subsets: ["latin"],
+const inter = Inter({
+  subsets: ["cyrillic"],
   display: "swap",
   weight: ["400", "700", "800"],
 });
 
-const urbanist = Urbanist({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "600"],
-});
-
-export { syne, urbanist };
+export { inter };
