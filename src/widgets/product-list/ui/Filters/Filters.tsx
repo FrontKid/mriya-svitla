@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 
 import {
   Search,
@@ -12,7 +12,7 @@ interface IFiltersProps {
   categories: ICategories[];
 }
 
-const Filters: FC<IFiltersProps> = ({ categories }) => {
+const FiltersMemo: FC<IFiltersProps> = ({ categories }) => {
   return (
     <section id="catalog" className="section-container">
       <form className="card text text-md mb-3 grid grid-cols-[2fr_1fr_1fr_1fr] gap-3">
@@ -24,5 +24,7 @@ const Filters: FC<IFiltersProps> = ({ categories }) => {
     </section>
   );
 };
+
+const Filters = memo(FiltersMemo);
 
 export { Filters };
