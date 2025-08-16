@@ -1,24 +1,9 @@
-import { XMLParser } from "fast-xml-parser";
-
 import { ProductList } from "../ui/ProductList";
 
 import { Filters } from "@/widgets/product-list/ui/Filters";
 import { ISearchParams } from "@/shared/lib/types/tSearchParams";
 import { ICategories } from "@/shared/lib/types/tCategories";
-
-const data = await fetch(
-  "https://feron.ua/system/storage/download/prom_ua_ru.xml",
-);
-
-const xmlText = await data.text();
-
-const parser = new XMLParser({
-  ignoreAttributes: false,
-  textNodeName: "text",
-  attributeNamePrefix: "",
-});
-
-const { yml_catalog } = parser.parse(xmlText);
+import { getProducts } from "@/shared/lib/helpers";
 
 interface IProductListWrapperProps {
   searchParams: Promise<ISearchParams>;
@@ -26,6 +11,7 @@ interface IProductListWrapperProps {
 const ProductListWrapper = async ({
   searchParams,
 }: IProductListWrapperProps) => {
+  const { yml_catalog } = await getProducts();
   const { category } = yml_catalog.categories;
   const searchParam = await searchParams;
   const {

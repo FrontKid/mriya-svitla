@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { XMLParser } from "fast-xml-parser";
+
 import { IProduct, IProductParam } from "@/shared/lib/types/tProduct";
 
 interface IParams {
@@ -145,6 +147,28 @@ const getPreparedProducts = (products: IProduct[], option: IOptions) => {
   });
 
   return filteredProducts;
+};
+
+let cachedData: any = null; // кэш для хранения результатов
+
+export const getProducts = async () => {
+  if (cachedData) return cachedData; // если уже загрузили — возвращаем
+
+  const data = await fetch(
+    "https://feron.ua/system/storage/download/prom_ua_ru.xml",
+  );
+  const xmlText = await data.text();
+
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+    textNodeName: "text",
+    attributeNamePrefix: "",
+  });
+
+  const productsData = parser.parse(xmlText);
+
+  cachedData = productsData; // сохраняем результат в кэш
+  return productsData;
 };
 
 export { formatPhone, parseProductName, updateQueryParam, getPreparedProducts };
