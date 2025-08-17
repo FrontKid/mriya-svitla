@@ -7,6 +7,7 @@ import { ICategories } from "@/shared/lib/types/tCategories";
 import { fetchProducts } from "@/shared/lib/helpers";
 import { AppLink } from "@/shared/ui/Button";
 import { EContacts } from "@/shared/lib/contacts";
+import { ProductsSkeleton } from "@/shared/ui/ProductsSceleton";
 
 const ProductListWrapper = async () => {
   const { productsData, error } = await fetchProducts();
@@ -45,7 +46,9 @@ const ProductListWrapper = async () => {
       </Suspense>
 
       {!error && (
-        <ProductList products={productsData?.yml_catalog.items.item} />
+        <Suspense fallback={<ProductsSkeleton />}>
+          <ProductList products={productsData?.yml_catalog.items.item} />
+        </Suspense>
       )}
 
       {error && (

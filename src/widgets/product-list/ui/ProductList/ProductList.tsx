@@ -1,6 +1,6 @@
 "use client";
 import { ArrowDown } from "lucide-react";
-import { FC, Suspense, useState } from "react";
+import { FC, useState } from "react";
 import clsx from "clsx";
 import { parseAsString, useQueryStates } from "nuqs";
 
@@ -9,7 +9,6 @@ import { AppButton } from "@/shared/ui/Button";
 import { Card } from "@/shared/ui/Card";
 import { getPreparedProducts } from "@/shared/lib/helpers";
 import { globalConfig } from "@/shared/lib/globalConfig";
-import { ProductsSkeleton } from "@/shared/ui/ProductsSceleton";
 import {
   brandConfig,
   minMaxConfig,
@@ -69,27 +68,25 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
         "pt-12": showFilteredProducts,
       })}
     >
-      <Suspense fallback={<ProductsSkeleton />}>
-        <ul className="relative grid grid-cols-[1fr_1fr_1fr] gap-3">
-          {preparedProducts.map((product) => (
-            <Card key={product.model} product={product} />
-          ))}
-          {shouldShowMore && (
-            <div className="gradient-up absolute right-0 bottom-0 left-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
-              <AppButton
-                onClick={handleShowMore}
-                className="text-subtitle hover:text-bg relative mb-12 rounded-2xl pr-10 text-green-800 transition-colors duration-300 hover:bg-green-800"
-              >
-                Показать еще
-                <ArrowDown
-                  className="absolute top-1/2 right-0 -translate-1/2"
-                  size={22}
-                />
-              </AppButton>
-            </div>
-          )}
-        </ul>
-      </Suspense>
+      <ul className="relative grid grid-cols-[1fr_1fr_1fr] gap-3">
+        {preparedProducts.map((product) => (
+          <Card key={product.model} product={product} />
+        ))}
+        {shouldShowMore && (
+          <div className="gradient-up absolute right-0 bottom-0 left-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
+            <AppButton
+              onClick={handleShowMore}
+              className="text-subtitle hover:text-bg relative mb-12 rounded-2xl pr-10 text-green-800 transition-colors duration-300 hover:bg-green-800"
+            >
+              Показать еще
+              <ArrowDown
+                className="absolute top-1/2 right-0 -translate-1/2"
+                size={22}
+              />
+            </AppButton>
+          </div>
+        )}
+      </ul>
 
       {showFilteredProducts && (
         <div className="flex flex-col items-center gap-3">
