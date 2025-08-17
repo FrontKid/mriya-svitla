@@ -1,9 +1,8 @@
 import { Hero } from "./(ui)";
 
-import { InfoCard } from "@/widgets";
-import { ProductListWrapper } from "@/widgets/product-list/model/ProductListWrapper";
+import { InfoCard, ProductListWrapper } from "@/widgets";
 
-export default async function Home() {
+export default function Home() {
   return (
     <main className="mt-10">
       <Hero />
