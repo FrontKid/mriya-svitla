@@ -1,27 +1,15 @@
 "use client";
-
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
+import { useQueryState } from "nuqs";
 
 import { searchConfig } from "@/features/searchByQuery/model/searchConfig";
-import { globalConfig } from "@/shared/lib/globalConfig";
+import { updateQueryParam } from "@/shared/lib/helpers";
 
 const Search = () => {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
+  const [name, setName] = useQueryState(searchConfig.PARAM_NAME);
 
-  const handleSearch = useDebouncedCallback((query: string) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (query) {
-      params.set(searchConfig.PARAM_NAME, query);
-    } else {
-      params.delete(searchConfig.PARAM_NAME);
-    }
-
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, globalConfig.DEBOUNCE_DELAY_MS);
+  const handleSearch = (query: string) => {
+    updateQueryParam(query, setName);
+  };
 
   return (
     <input
@@ -29,7 +17,7 @@ const Search = () => {
         handleSearch(e.target.value);
       }}
       className="field"
-      defaultValue={searchParams.get(searchConfig.PARAM_NAME) || ""}
+      value={name ?? ""}
       placeholder={searchConfig.SEARCH_PLACEHOLDER}
     />
   );

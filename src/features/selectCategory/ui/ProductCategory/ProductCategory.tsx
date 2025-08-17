@@ -1,12 +1,10 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { FC } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import { useQueryState } from "nuqs";
 
 import { productCategoryConfig } from "@/features/selectCategory/model/productCategoryConfig";
 import { ICategories } from "@/shared/lib/types/tCategories";
-import { globalConfig } from "@/shared/lib/globalConfig";
 import { updateQueryParam } from "@/shared/lib/helpers";
 
 interface IProductCategoryProps {
@@ -14,27 +12,19 @@ interface IProductCategoryProps {
 }
 
 const ProductCategory: FC<IProductCategoryProps> = ({ categories }) => {
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const searchParams = useSearchParams();
+  const [category, setCategory] = useQueryState(
+    productCategoryConfig.PARAM_NAME,
+  );
 
-  const handleCategory = useDebouncedCallback((category: string) => {
-    updateQueryParam(
-      productCategoryConfig.PARAM_NAME,
-      category,
-      searchParams,
-      replace,
-      pathname,
-    );
-  }, globalConfig.DEBOUNCE_DELAY_MS);
+  const handleCategory = (category: string) => {
+    updateQueryParam(category, setCategory);
+  };
 
   return (
     <select
       onChange={(e) => handleCategory(e.target.value)}
       className="field"
-      defaultValue={searchParams
-        .get(productCategoryConfig.PARAM_NAME)
-        ?.toString()}
+      value={category ?? ""}
       id="category"
     >
       <option value="">Все товары</option>

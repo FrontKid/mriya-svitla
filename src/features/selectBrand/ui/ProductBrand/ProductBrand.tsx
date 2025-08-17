@@ -1,25 +1,23 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useDebouncedCallback } from "use-debounce";
+import { useQueryState } from "nuqs";
+
+import { brandConfig } from "../../model/brandConfig";
 
 import { updateQueryParam } from "@/shared/lib/helpers";
-import { globalConfig } from "@/shared/lib/globalConfig";
 
 const brandCatigory = [{ id: "1", name: "Feron", slug: "feron" }];
 
 const ProductBrand = () => {
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const searchParams = useSearchParams();
+  const [brand, setBrand] = useQueryState(brandConfig.PARAM_NAME);
 
-  const handleBrand = useDebouncedCallback((brand: string) => {
-    updateQueryParam("brand", brand, searchParams, replace, pathname);
-  }, globalConfig.DEBOUNCE_DELAY_MS);
+  const handleBrand = (brand: string) => {
+    updateQueryParam(brand, setBrand);
+  };
 
   return (
     <select
-      defaultValue={searchParams.get("brand")?.toString() ?? ""}
+      value={brand ?? ""}
       onChange={(e) => handleBrand(e.target.value)}
       className="field"
     >

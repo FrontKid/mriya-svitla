@@ -1,7 +1,8 @@
 "use client";
 import { ArrowDown } from "lucide-react";
-import { FC, Suspense, useMemo, useState } from "react";
+import { FC, Suspense, useState } from "react";
 import clsx from "clsx";
+import { parseAsString, useQueryStates } from "nuqs";
 
 import { IProduct } from "@/shared/lib/types/tProduct";
 import { AppButton } from "@/shared/ui/Button";
@@ -9,22 +10,37 @@ import { Card } from "@/shared/ui/Card";
 import { getPreparedProducts } from "@/shared/lib/helpers";
 import { globalConfig } from "@/shared/lib/globalConfig";
 import { ProductsSkeleton } from "@/shared/ui/ProductsSceleton";
+import {
+  brandConfig,
+  minMaxConfig,
+  productCategoryConfig,
+  searchConfig,
+} from "@/features";
 
 type TProductListProps = {
   products: IProduct[];
-  options: {
-    query: string;
-    categoryId: string;
-    minCost: string;
-    maxCost: string;
-  };
 };
 
-const ProductList: FC<TProductListProps> = ({ products, options }) => {
-  const { query, categoryId, minCost, maxCost } = options;
+const ProductList: FC<TProductListProps> = ({ products }) => {
+  const [{ query, brand, categoryId, minCost, maxCost }] = useQueryStates({
+    [searchConfig.PARAM_NAME]: parseAsString.withDefault(""),
+    [brandConfig.PARAM_NAME]: parseAsString.withDefault(""),
+    [productCategoryConfig.PARAM_NAME]: parseAsString.withDefault(""),
+    [minMaxConfig.PARAM_NAME_MIN]: parseAsString.withDefault(""),
+    [minMaxConfig.PARAM_NAME_MAX]: parseAsString.withDefault(""),
+  });
+
   const [productsParPage, setProductsPerPage] = useState(
     globalConfig.PRODUCTS_PER_PAGE,
   );
+
+  const options = {
+    query,
+    brand,
+    categoryId,
+    minCost,
+    maxCost,
+  };
 
   const preparedProducts = getPreparedProducts(products, options).slice(
     0,
@@ -41,7 +57,8 @@ const ProductList: FC<TProductListProps> = ({ products, options }) => {
     }
   };
 
-  const hasParams = !!query || !!categoryId || !!minCost || !!maxCost;
+  const hasParams =
+    !!query || !!brand || !!categoryId || !!minCost || !!maxCost;
 
   const showFilteredProducts =
     hasParams && !getPreparedProducts(products, options).length;

@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { XMLParser } from "fast-xml-parser";
-
-import { globalConfig } from "./globalConfig";
 
 import { IProduct, IProductParam } from "@/shared/lib/types/tProduct";
 
@@ -71,21 +68,14 @@ const parseProductName = (name: string, params: IProductParam[]) => {
 };
 
 const updateQueryParam = (
-  paramName: string,
   value: string | null,
-  searchParams: URLSearchParams,
-  replace: any,
-  pathname: string,
+  setValue: (_: string | null) => void,
 ) => {
-  const params = new URLSearchParams(searchParams);
-
   if (value) {
-    params.set(paramName, value);
+    setValue(value);
   } else {
-    params.delete(paramName);
+    setValue(null);
   }
-
-  replace(`${pathname}?${params.toString()}`, { scroll: false });
 };
 
 const isProductMatch = (query: string, params: IParams) => {

@@ -7,31 +7,10 @@ import { fetchProducts } from "@/shared/lib/helpers";
 import { AppLink } from "@/shared/ui/Button";
 import { EContacts } from "@/shared/lib/contacts";
 
-interface IProductListWrapperProps {
-  searchParams: Promise<ISearchParams>;
-}
-const ProductListWrapper = async ({
-  searchParams,
-}: IProductListWrapperProps) => {
+const ProductListWrapper = async () => {
   const { productsData, error } = await fetchProducts();
 
   const category = !error ? productsData.yml_catalog.categories.category : [];
-
-  const searchParam = await searchParams;
-
-  const {
-    query = "",
-    categoryId = "",
-    minCost = "",
-    maxCost = "",
-  } = searchParam ?? {};
-
-  const options = {
-    query,
-    categoryId,
-    minCost,
-    maxCost,
-  };
 
   const preparedCategories: ICategories[] = category.filter(
     (category: ICategories) => !!category.parentId,
@@ -42,10 +21,7 @@ const ProductListWrapper = async ({
       <Filters categories={preparedCategories} />
 
       {!error && (
-        <ProductList
-          products={productsData?.yml_catalog.items.item}
-          options={options}
-        />
+        <ProductList products={productsData?.yml_catalog.items.item} />
       )}
 
       {error && (

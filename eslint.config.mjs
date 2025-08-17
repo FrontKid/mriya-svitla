@@ -17,6 +17,7 @@ const eslintConfig = [
       eqeqeq: ["error", "always"],
       semi: ["error"],
       quotes: ["error", "double"],
+      "import/no-cycle": ["error", { maxDepth: 10 }],
       "prefer-arrow-callback": ["error"],
       "prefer-template": ["error"],
       "no-console": ["warn", { allow: ["warn", "error"] }],

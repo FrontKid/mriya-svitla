@@ -1,45 +1,30 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FC } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import { useQueryState } from "nuqs";
 
 import { minMaxConfig } from "../../model/minMaxConfig";
 
-import { globalConfig } from "@/shared/lib/globalConfig";
 import { updateQueryParam } from "@/shared/lib/helpers";
 
 type TFilterByMinMaxProps = object;
 
 const FilterByMinMax: FC<TFilterByMinMaxProps> = () => {
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const searchParams = useSearchParams();
+  const [minValue, setMinValue] = useQueryState(minMaxConfig.PARAM_NAME_MIN);
+  const [maxValue, setMaxValue] = useQueryState(minMaxConfig.PARAM_NAME_MAX);
 
-  const handleMin = useDebouncedCallback((minCostIncome: string) => {
-    updateQueryParam(
-      minMaxConfig.PARAM_NAME_MIN,
-      minCostIncome,
-      searchParams,
-      replace,
-      pathname,
-    );
-  }, globalConfig.DEBOUNCE_DELAY_MS);
+  const handleMin = (minCostIncome: string) => {
+    updateQueryParam(minCostIncome, setMinValue);
+  };
 
-  const handleMax = useDebouncedCallback((maxCostIncome: string) => {
-    updateQueryParam(
-      minMaxConfig.PARAM_NAME_MAX,
-      maxCostIncome,
-      searchParams,
-      replace,
-      pathname,
-    );
-  }, globalConfig.DEBOUNCE_DELAY_MS);
+  const handleMax = (maxCostIncome: string) => {
+    updateQueryParam(maxCostIncome, setMaxValue);
+  };
   return (
     <div className="flex gap-2">
       <label>
         <input
-          defaultValue={searchParams.get("minCost")?.toString()}
+          value={minValue ?? ""}
           onChange={(e) => handleMin(e.target.value)}
           className="field"
           id="minPrice"
@@ -50,7 +35,7 @@ const FilterByMinMax: FC<TFilterByMinMaxProps> = () => {
       </label>
       <label>
         <input
-          defaultValue={searchParams.get("maxCost")?.toString()}
+          value={maxValue ?? ""}
           onChange={(e) => handleMax(e.target.value)}
           className="field"
           id="maxPrice"
