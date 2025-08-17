@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 enum ERRORS {
-  NOT_FOUND = "NOT_FOUND",
+  FETCHED_WITH_ERROR = "Fetched error:",
+  API_UNDEFINED = "API_URL is not defined in environment variables",
 }
 
 export { ERRORS };

@@ -1,15 +1,12 @@
 "use client";
 
-import { FC } from "react";
 import { useQueryState } from "nuqs";
 
 import { minMaxConfig } from "../../model/minMaxConfig";
 
 import { updateQueryParam } from "@/shared/lib/helpers";
 
-type TFilterByMinMaxProps = object;
-
-const FilterByMinMax: FC<TFilterByMinMaxProps> = () => {
+const FilterByMinMax = () => {
   const [minValue, setMinValue] = useQueryState(minMaxConfig.PARAM_NAME_MIN);
   const [maxValue, setMaxValue] = useQueryState(minMaxConfig.PARAM_NAME_MAX);
 

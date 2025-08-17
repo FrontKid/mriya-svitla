@@ -4,10 +4,11 @@ interface IProductParam {
 }
 
 type TParam = string | number | null;
+type TVendor = "Ardero" | "Ledcoin" | "Feron";
 
 interface IProduct {
   image: string | string[];
-  vendor: string;
+  vendor: TVendor;
   name: string;
   power: TParam;
   price: number;

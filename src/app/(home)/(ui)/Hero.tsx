@@ -4,8 +4,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 
-import { AppLink } from "@\/shared/ui/Button";
-import { EContacts } from "@/shared/lib/contacts";
+import { AppLink } from "@/shared/ui/Button";
 import { ImageSceleton } from "@/shared/ui/ImageSceleton";
 
 const Hero = () => {
@@ -23,21 +22,15 @@ const Hero = () => {
             встраиваемые, уличные, офисные решения. Работаем c розницей и оптом.
           </p>
           <div className="flex items-center gap-3">
-            <AppLink type="btn" href="#catalog">
+            <AppLink title="Открыть каталог" type="btn" href="#catalog">
               Открыть каталог
-            </AppLink>
-            <AppLink
-              target="_blank"
-              type="btn-outline"
-              href={`https://wa.me/${EContacts.PHONE_NUMBER}`}
-            >
-              Написать в WhatsApp
             </AppLink>
           </div>
         </div>
         <div className="relative w-full">
           {isLoading && <ImageSceleton classname="rounded-2xl h-[346px]" />}
           <Image
+            title="Освещение баннер"
             className={clsx("border-line rounded-2xl border border-solid", {
               "opacity-0": isLoading,
               "opacity-100": !isLoading,

@@ -2,7 +2,8 @@
 
 import { useQueryState } from "nuqs";
 
-import { searchConfig } from "@/features/searchByQuery/model/searchConfig";
+import { searchConfig } from "../../model/searchConfig";
+
 import { updateQueryParam } from "@/shared/lib/helpers";
 
 const Search = () => {
@@ -14,9 +15,7 @@ const Search = () => {
 
   return (
     <input
-      onChange={(e) => {
-        handleSearch(e.target.value);
-      }}
+      onChange={(e) => handleSearch(e.target.value)}
       className="field"
       value={name ?? ""}
       placeholder={searchConfig.SEARCH_PLACEHOLDER}

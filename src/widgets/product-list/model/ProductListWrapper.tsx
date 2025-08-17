@@ -8,6 +8,9 @@ import { fetchProducts } from "@/shared/lib/helpers";
 import { AppLink } from "@/shared/ui/Button";
 import { EContacts } from "@/shared/lib/contacts";
 import { ProductsSkeleton } from "@/shared/ui/ProductsSceleton";
+import { FiltersSceleton } from "@/shared/ui/FiltersSceleton";
+
+const MOUNTED_LIGHTS_CATEGORY_ID = "34";
 
 const ProductListWrapper = async () => {
   const { productsData, error } = await fetchProducts();
@@ -15,33 +18,17 @@ const ProductListWrapper = async () => {
   const category = !error ? productsData.yml_catalog.categories.category : [];
 
   const preparedCategories: ICategories[] = category.filter(
-    (category: ICategories) => !!category.parentId,
+    (category: ICategories) => {
+      const removeDublicateCategory =
+        category.id !== MOUNTED_LIGHTS_CATEGORY_ID;
+
+      return !!category.parentId && removeDublicateCategory;
+    },
   );
 
   return (
     <>
-      <Suspense
-        fallback={
-          <section id="catalog" className="section-container">
-            <form className="card text text-md mb-3 grid animate-pulse grid-cols-[2fr_1fr_1fr_1fr] gap-3">
-              {/* Search */}
-              <div className="h-10 w-full rounded-xl bg-gray-200" />
-
-              {/* Brand */}
-              <div className="h-10 w-full rounded-xl bg-gray-200" />
-
-              {/* Category */}
-              <div className="h-10 w-full rounded-xl bg-gray-200" />
-
-              {/* Min/Max */}
-              <div className="flex gap-2">
-                <div className="h-10 w-full rounded-xl bg-gray-200" />
-                <div className="h-10 w-full rounded-xl bg-gray-200" />
-              </div>
-            </form>
-          </section>
-        }
-      >
+      <Suspense fallback={<FiltersSceleton />}>
         <Filters categories={preparedCategories} />
       </Suspense>
 
@@ -56,7 +43,11 @@ const ProductListWrapper = async () => {
           <h2 className="text-subtitle pb-5 font-bold">
             Сейчас товары недоступны, попробуйте позже!
           </h2>
-          <AppLink href={`viber://${EContacts.PHONE_NUMBER}`} type="btn">
+          <AppLink
+            title="Написать в вайбер"
+            href={`viber://chat?number=${EContacts.PHONE_NUMBER}`}
+            type="btn"
+          >
             Обратитесь к поставщику
           </AppLink>
         </div>

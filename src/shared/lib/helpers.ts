@@ -1,6 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
 
 import { globalConfig } from "./globalConfig";
+import { ERRORS } from "./errors";
 
 import { IProduct, IProductParam } from "@/shared/lib/types/tProduct";
 
@@ -15,13 +16,16 @@ interface IOptions {
   query: string;
   categoryId: string;
   minCost: string;
+  brand: string;
   maxCost: string;
 }
 
 const formatPhone = (number: string) => {
+  const MAX_NUMBER_LENGTH = 12;
+
   const digits = number.replace(/\D/g, "");
 
-  if (digits.length !== 12) {
+  if (digits.length !== MAX_NUMBER_LENGTH) {
     return number;
   }
 
@@ -94,7 +98,7 @@ const isProductMatch = (query: string, params: IParams) => {
 };
 
 const getPreparedProducts = (products: IProduct[], option: IOptions) => {
-  const { query, categoryId, minCost, maxCost } = option;
+  const { query, categoryId, minCost, maxCost, brand } = option;
   let filteredProducts: IProduct[] = [...products];
 
   if (query) {
@@ -106,6 +110,12 @@ const getPreparedProducts = (products: IProduct[], option: IOptions) => {
         code: String(upc),
       }),
     );
+  }
+
+  if (brand) {
+    filteredProducts = filteredProducts.filter((product) => {
+      return product.vendor.toLowerCase() === brand.toLowerCase();
+    });
   }
 
   if (categoryId) {
@@ -149,13 +159,15 @@ const fetchProducts = async () => {
   let productsData = null;
 
   try {
-    data = await fetch(
-      "https://feron.ua/system/storage/download/prom_ua_ru.xml",
-      { next: { revalidate: globalConfig.PRODUCTS_UPDATE_S } },
-    );
+    if (!process.env.API_URL) {
+      throw new Error(ERRORS.API_UNDEFINED);
+    }
+    data = await fetch(process.env.API_URL, {
+      next: { revalidate: globalConfig.PRODUCTS_UPDATE_DATA },
+    });
 
     if (!data.ok) {
-      throw new Error(`Ошибка загрузки: ${data.status}`);
+      throw new Error(`${ERRORS.FETCHED_WITH_ERROR} ${data.status}`);
     }
 
     const xmlText = await data?.text();
@@ -166,7 +178,28 @@ const fetchProducts = async () => {
       attributeNamePrefix: "",
     });
 
+    const productOrder = { Ardero: 0, Ledcoin: 1, Feron: 2 };
+
     productsData = parser.parse(xmlText);
+
+    const sortedItems = [...productsData.yml_catalog.items.item]
+      .filter((item: IProduct) => item.price !== 0)
+      .sort(
+        (a: IProduct, b: IProduct) =>
+          productOrder[a.vendor] - productOrder[b.vendor],
+      );
+
+    productsData = {
+      ...productsData,
+      yml_catalog: {
+        ...productsData.yml_catalog,
+        items: {
+          ...productsData.yml_catalog.items,
+          item: sortedItems,
+        },
+      },
+    };
+
     return { productsData, error };
   } catch (errorIncome) {
     error = errorIncome;

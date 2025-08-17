@@ -5,7 +5,6 @@ const ProductsSkeleton = () => (
         key={i}
         className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-3"
       >
-        {/* Переливающийся блок */}
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-200">
           <div className="animate-shimmer absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200" />
         </div>

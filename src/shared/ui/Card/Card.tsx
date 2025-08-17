@@ -15,6 +15,7 @@ type TCardProps = {
 
 const Card: FC<TCardProps> = ({ product }) => {
   const [loading, setLoading] = useState(true);
+
   const {
     image,
     vendor,
@@ -34,6 +35,7 @@ const Card: FC<TCardProps> = ({ product }) => {
       <div className="relative">
         {loading && <ImageSceleton />}
         <Image
+          title={name}
           className={clsx(
             "border-line bg-card-product flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-xl border border-solid",
             {
@@ -68,19 +70,12 @@ const Card: FC<TCardProps> = ({ product }) => {
       <span className="text-lg font-extrabold">{`${price} \u20B4`}</span>
       <div className="flex items-center gap-3">
         <AppLink
+          title="Заказать"
           type="btn"
           className="flex-2 text-center"
-          href={`viber://${EContacts.PHONE_NUMBER}`}
+          href={`viber://chat?number=${EContacts.PHONE_NUMBER}`}
         >
           {available === "false" ? "Узнать о наличии" : "Заказать"}
-        </AppLink>
-        <AppLink
-          className="flex-1 text-center"
-          href={`https://wa.me/${EContacts.PHONE_NUMBER}`}
-          type="btn-outline"
-          target="_blank"
-        >
-          WhatsApp
         </AppLink>
       </div>
     </li>

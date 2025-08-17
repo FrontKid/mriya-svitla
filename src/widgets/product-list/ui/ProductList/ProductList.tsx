@@ -29,7 +29,7 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
     [minMaxConfig.PARAM_NAME_MAX]: parseAsString.withDefault(""),
   });
 
-  const [productsParPage, setProductsPerPage] = useState(
+  const [productsPerPage, setProductsPerPage] = useState(
     globalConfig.PRODUCTS_PER_PAGE,
   );
 
@@ -43,10 +43,16 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
 
   const preparedProducts = getPreparedProducts(products, options).slice(
     0,
-    productsParPage,
+    productsPerPage,
   );
 
-  const shouldShowMore = productsParPage <= preparedProducts.length;
+  const shouldShowMore = productsPerPage <= preparedProducts.length;
+
+  const hasParams =
+    !!query || !!brand || !!categoryId || !!minCost || !!maxCost;
+
+  const showFilteredProducts =
+    hasParams && !getPreparedProducts(products, options).length;
 
   const handleShowMore = () => {
     if (shouldShowMore) {
@@ -55,12 +61,6 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
       );
     }
   };
-
-  const hasParams =
-    !!query || !!brand || !!categoryId || !!minCost || !!maxCost;
-
-  const showFilteredProducts =
-    hasParams && !getPreparedProducts(products, options).length;
 
   return (
     <section
@@ -73,8 +73,9 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
           <Card key={product.model} product={product} />
         ))}
         {shouldShowMore && (
-          <div className="gradient-up absolute right-0 bottom-0 left-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
+          <li className="gradient-up absolute right-0 bottom-0 left-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
             <AppButton
+              title="Показать еще"
               onClick={handleShowMore}
               className="text-subtitle hover:text-bg relative mb-12 rounded-2xl pr-10 text-green-800 transition-colors duration-300 hover:bg-green-800"
             >
@@ -84,7 +85,7 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
                 size={22}
               />
             </AppButton>
-          </div>
+          </li>
         )}
       </ul>
 

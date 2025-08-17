@@ -4,45 +4,47 @@ import { EContacts } from "@/shared/lib/contacts";
 import { formatPhone } from "@/shared/lib/helpers";
 import { AppLink } from "@/shared/ui/Button";
 
-const Header = () => {
-  return (
-    <header className="backdrop-saturate-header border-b-line border-solid; sticky top-0 z-5 border-b bg-white/10 backdrop-blur-sm">
-      <div className="container flex items-center justify-between py-2.5">
-        <Link href="#page-top" className="flex items-center gap-3">
-          <div className="grid h-9 w-9 place-items-center rounded-xl bg-black font-extrabold text-white">
-            OK
+const Header = () => (
+  <header className="backdrop-saturate-header border-b-line border-solid; sticky top-0 z-5 border-b bg-white/10 backdrop-blur-sm">
+    <div className="container flex items-center justify-between py-2.5">
+      <Link href="#page-top" className="flex items-center gap-3">
+        <div className="grid h-9 w-9 place-items-center rounded-xl bg-black font-extrabold text-white">
+          OK
+        </div>
+        <div>
+          <div className="text-lg font-extrabold">
+            Освещение • {EContacts.NAME}
           </div>
-          <div>
-            <div className="text-lg font-extrabold">
-              Освещение • {EContacts.NAME}
-            </div>
-            <div className="text-muted text-xs">Feron • Linef • LeviStella</div>
-          </div>
+          <div className="text-muted text-xs">Feron • Linef • LeviStella</div>
+        </div>
+      </Link>
+      <nav className="flex items-center gap-4">
+        <Link className="linkStyle" href="#catalog">
+          Каталог
         </Link>
-        <nav className="flex items-center gap-4">
-          <Link className="linkStyle" href="#catalog">
-            Каталог
-          </Link>
-          <Link className="linkStyle" href="#services">
-            Услуги
-          </Link>
-          <Link className="linkStyle" href="#contacts">
-            Контакты
-          </Link>
-          <AppLink type="btn" href={`tel:${EContacts.PHONE_NUMBER}`}>
-            {formatPhone(EContacts.PHONE_NUMBER)}
-          </AppLink>
-        </nav>
-        <button
-          className="border-line hidden rounded-lg border border-solid bg-transparent px-2.5 py-1.5"
-          id="navToggle"
-          aria-label="Открыть меню"
+        <Link className="linkStyle" href="#services">
+          Услуги
+        </Link>
+        <Link className="linkStyle" href="#contacts">
+          Контакты
+        </Link>
+        <AppLink
+          title="Номер телефона"
+          type="btn"
+          href={`tel:${EContacts.PHONE_NUMBER}`}
         >
-          ☰
-        </button>
-      </div>
-    </header>
-  );
-};
+          {formatPhone(EContacts.PHONE_NUMBER)}
+        </AppLink>
+      </nav>
+      <button
+        className="border-line hidden rounded-lg border border-solid bg-transparent px-2.5 py-1.5"
+        id="navToggle"
+        aria-label="Открыть меню"
+      >
+        ☰
+      </button>
+    </div>
+  </header>
+);
 
 export { Header };

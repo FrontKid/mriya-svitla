@@ -11,11 +11,13 @@ type TLinkProps = {
   href: string;
   type?: TLinkType;
   target?: TTarget;
+  title: string;
   className?: string;
 };
 
 type TButtonProps = {
   children: ReactNode;
+  title: string;
   className?: string;
   type?: "btn" | "simple";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -26,11 +28,13 @@ const AppLink: FC<TLinkProps> = ({
   className,
   type,
   href,
+  title,
   target,
 }) => {
   return (
     <Link
       href={href}
+      title={title}
       target={target}
       className={clsx(className, {
         "btn px-4.5 py-3": type === "btn",
@@ -45,12 +49,14 @@ const AppLink: FC<TLinkProps> = ({
 
 const AppButton: FC<TButtonProps> = ({
   children,
+  title,
   className,
   onClick,
   type,
 }) => {
   return (
     <button
+      title={title}
       className={clsx(className, "cursor-pointer px-4.5 py-3", {
         btn: type === "btn",
       })}
