@@ -44,10 +44,10 @@ const Hero = () => {
             })}
             width={483}
             height={363}
+            priority
             src="/hero/shop-place.jpg"
             alt="Освещение баннер"
             onLoad={() => setLoading(false)}
-            loading="lazy"
           />
         </div>
       </div>

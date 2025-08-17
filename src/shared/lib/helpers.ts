@@ -1,5 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
 
+import { globalConfig } from "./globalConfig";
+
 import { IProduct, IProductParam } from "@/shared/lib/types/tProduct";
 
 interface IParams {
@@ -141,11 +143,7 @@ const getPreparedProducts = (products: IProduct[], option: IOptions) => {
   return filteredProducts;
 };
 
-let cachedData: { productsData: IProduct; error: Error | null } | null = null;
-
 const fetchProducts = async () => {
-  if (cachedData) return cachedData;
-
   let error = null;
   let data = null;
   let productsData = null;
@@ -153,7 +151,7 @@ const fetchProducts = async () => {
   try {
     data = await fetch(
       "https://feron.ua/system/storage/download/prom_ua_ru.xml",
-      // { next: { revalidate: globalConfig.PRODUCTS_UPDATE_S } },
+      { next: { revalidate: globalConfig.PRODUCTS_UPDATE_S } },
     );
 
     if (!data.ok) {
@@ -169,8 +167,6 @@ const fetchProducts = async () => {
     });
 
     productsData = parser.parse(xmlText);
-    cachedData = { productsData, error };
-
     return { productsData, error };
   } catch (errorIncome) {
     error = errorIncome;
