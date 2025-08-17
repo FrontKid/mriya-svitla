@@ -1,7 +1,6 @@
 import { ProductList } from "../ui/ProductList";
 
 import { Filters } from "@/widgets/product-list/ui/Filters";
-import { ISearchParams } from "@/shared/lib/types/tSearchParams";
 import { ICategories } from "@/shared/lib/types/tCategories";
 import { fetchProducts } from "@/shared/lib/helpers";
 import { AppLink } from "@/shared/ui/Button";
