@@ -53,7 +53,7 @@ const Card: FC<TCardProps> = ({ product }) => {
         {available === "false" && !loading && (
           <>
             <div className="absolute inset-0 rounded-xl bg-black/25"></div>
-            <span className="text-bg absolute top-1/2 left-1/2 -translate-1/2 font-bold">
+            <span className="text-bg absolute top-1/2 left-1/2 -translate-1/2 font-bold text-nowrap">
               Немає у наявності
             </span>
           </>
