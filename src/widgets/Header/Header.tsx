@@ -34,7 +34,7 @@ const Header = () => {
             </div>
             <div>
               <div className="text-base font-extrabold sm:text-lg">
-                Освещение • {EContacts.NAME}
+                Освітлення • {EContacts.NAME}
               </div>
               <div className="text-muted text-xs sm:text-sm">
                 Feron • Linef • LeviStella
@@ -50,18 +50,18 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link title="Услуги" className="linkStyle" href="#services">
-                  Услуги
+                <Link title="Послуги" className="linkStyle" href="#services">
+                  Послуги
                 </Link>
               </li>
               <li>
-                <Link title="Контакты" className="linkStyle" href="#contacts">
-                  Контакты
+                <Link title="Контакти" className="linkStyle" href="#contacts">
+                  Контакти
                 </Link>
               </li>
               <li>
                 <AppLink
-                  title="Номер телефона"
+                  title="Номер телефону"
                   type="btn"
                   href={`tel:${EContacts.PHONE_NUMBER}`}
                 >
@@ -74,7 +74,7 @@ const Header = () => {
           <button
             className="border-line cursor-pointer rounded-lg border border-solid bg-transparent px-2.5 py-1.5 md:hidden"
             onClick={() => setIsOpen(true)}
-            aria-label="Открыть меню"
+            aria-label="Відкрити меню"
           >
             ☰
           </button>
@@ -95,7 +95,7 @@ const Header = () => {
             </button>
 
             <Link
-              title="Освещение • Oleksandr"
+              title="Освітлення • Oleksandr"
               href="#page-top"
               className="mb-3 flex flex-col gap-3"
               onClick={() => setIsOpen(false)}
@@ -105,7 +105,7 @@ const Header = () => {
               </div>
               <div>
                 <div className="text-base font-extrabold sm:text-lg">
-                  Освещение • {EContacts.NAME}
+                  Освітлення • {EContacts.NAME}
                 </div>
                 <div className="text-muted text-xs sm:text-sm">
                   Feron • Linef • LeviStella
@@ -117,6 +117,7 @@ const Header = () => {
               <ul className="flex flex-col gap-4">
                 <li>
                   <Link
+                    title="Каталог"
                     className="text-lg font-medium"
                     href="#catalog"
                     onClick={() => setIsOpen(false)}
@@ -126,27 +127,29 @@ const Header = () => {
                 </li>
                 <li>
                   <Link
+                    title="Послуги"
                     className="text-lg font-medium"
                     href="#services"
                     onClick={() => setIsOpen(false)}
                   >
-                    Услуги
+                    Послуги
                   </Link>
                 </li>
                 <li>
                   <Link
+                    title="Контакти"
                     className="text-lg font-medium"
                     href="#contacts"
                     onClick={() => setIsOpen(false)}
                   >
-                    Контакты
+                    Контакти
                   </Link>
                 </li>
 
                 <li>
                   <AppLink
                     type="btn"
-                    title="Номер телефона"
+                    title="Номер телефону"
                     href={`tel:${EContacts.PHONE_NUMBER}`}
                     onClick={() => setIsOpen(false)}
                     className="text-center"

@@ -17,7 +17,7 @@ const ProductBrand = () => {
   return (
     <>
       <label htmlFor="brandSelect" className="sr-only">
-        Бренд
+        бренди
       </label>
       <select
         id="brandSelect"
@@ -25,7 +25,7 @@ const ProductBrand = () => {
         className="field"
         value={brand ?? ""}
       >
-        <option value="">Все бренды</option>
+        <option value="">Усі бренди</option>
         {brandCatigory.map((brand) => (
           <option key={brand.id} value={brand.slug}>
             {brand.name}

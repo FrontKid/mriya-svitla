@@ -15,15 +15,15 @@ const Hero = () => {
       <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
         <div className="w-full md:w-1/2">
           <h1 className="mb-3 text-2xl leading-snug font-extrabold sm:text-3xl sm:leading-10 lg:text-4xl lg:leading-[3rem]">
-            Каталог освещения для бизнеса и дома
+            Каталог освітлення для бізнесу та дому
           </h1>
           <p className="text-muted mb-4 text-sm sm:text-base lg:text-lg">
-            Проверенные бренды, быстрые поставки, помощь в подборе. Трековые,
-            встраиваемые, уличные, офисные решения. Работаем c розницей и оптом.
+            Перевірені бренди, швидкі поставки, допомога у підборі. Трекові,
+            вбудовані, вуличні, офісні рішення. Працюємо з роздрібом та оптом.
           </p>
           <div className="flex items-center gap-3">
-            <AppLink title="Открыть каталог" type="btn" href="#catalog">
-              Открыть каталог
+            <AppLink title="Відкрити каталог" type="btn" href="#catalog">
+              Відкрити каталог
             </AppLink>
           </div>
         </div>

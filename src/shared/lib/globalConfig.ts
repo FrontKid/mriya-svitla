@@ -1,7 +1,11 @@
+const MOUNTED_LIGHTS_CATEGORY_ID = "34";
+const DURALIGHT_CATEGORY_ID = "78";
+
 const globalConfig = {
   DEBOUNCE_DELAY_MS: 200,
   PRODUCTS_PER_PAGE: 15,
   PRODUCTS_UPDATE_DATA: 3600,
+  deletedGoodsIds: [MOUNTED_LIGHTS_CATEGORY_ID, DURALIGHT_CATEGORY_ID],
 };
 
 export { globalConfig };

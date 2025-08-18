@@ -14,12 +14,18 @@ const Search = () => {
   };
 
   return (
-    <input
-      onChange={(e) => handleSearch(e.target.value)}
-      className="field"
-      value={name ?? ""}
-      placeholder={searchConfig.SEARCH_PLACEHOLDER}
-    />
+    <>
+      <label htmlFor="search" className="sr-only">
+        {searchConfig.SEARCH_PLACEHOLDER}
+      </label>
+      <input
+        id="search"
+        onChange={(e) => handleSearch(e.target.value)}
+        className="field"
+        value={name ?? ""}
+        placeholder={searchConfig.SEARCH_PLACEHOLDER}
+      />
+    </>
   );
 };
 

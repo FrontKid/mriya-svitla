@@ -23,7 +23,7 @@ const ProductCategory: FC<IProductCategoryProps> = ({ categories }) => {
   return (
     <>
       <label className="sr-only" htmlFor="category">
-        Категории
+        Категорії
       </label>
       <select
         id="category"
@@ -31,7 +31,7 @@ const ProductCategory: FC<IProductCategoryProps> = ({ categories }) => {
         value={category ?? ""}
         className="field"
       >
-        <option value="">Все товары</option>
+        <option value="">Усі категорії</option>
         {categories.map(({ text, id }) => (
           <option key={id} value={id}>
             {text}

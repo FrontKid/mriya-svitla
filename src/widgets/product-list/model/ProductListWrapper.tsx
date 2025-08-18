@@ -9,8 +9,7 @@ import { AppLink } from "@/shared/ui/Button";
 import { EContacts } from "@/shared/lib/contacts";
 import { ProductsSkeleton } from "@/shared/ui/ProductsSceleton";
 import { FiltersSceleton } from "@/shared/ui/FiltersSceleton";
-
-const MOUNTED_LIGHTS_CATEGORY_ID = "34";
+import { globalConfig } from "@/shared/lib/globalConfig";
 
 const ProductListWrapper = async () => {
   const { productsData, error } = await fetchProducts();
@@ -19,10 +18,10 @@ const ProductListWrapper = async () => {
 
   const preparedCategories: ICategories[] = category.filter(
     (category: ICategories) => {
-      const removeDublicateCategory =
-        category.id !== MOUNTED_LIGHTS_CATEGORY_ID;
-
-      return !!category.parentId && removeDublicateCategory;
+      return (
+        !!category.parentId &&
+        !globalConfig.deletedGoodsIds.includes(category.id)
+      );
     },
   );
 

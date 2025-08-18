@@ -52,9 +52,9 @@ const Card: FC<TCardProps> = ({ product }) => {
         />
         {available === "false" && !loading && (
           <>
-            <div className="absolute inset-0 rounded-xl bg-black/50"></div>
+            <div className="absolute inset-0 rounded-xl bg-black/25"></div>
             <span className="text-bg absolute top-1/2 left-1/2 -translate-1/2 font-bold">
-              Нет в наличии
+              Немає у наявності
             </span>
           </>
         )}
@@ -75,7 +75,7 @@ const Card: FC<TCardProps> = ({ product }) => {
           className="flex-2 text-center"
           href={`viber://chat?number=${EContacts.PHONE_NUMBER}`}
         >
-          {available === "false" ? "Узнать о наличии" : "Заказать"}
+          {available === "false" ? "Дізнатись про наявність" : "Замовити"}
         </AppLink>
       </div>
     </li>

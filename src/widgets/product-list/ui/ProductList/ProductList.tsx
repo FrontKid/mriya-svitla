@@ -68,11 +68,11 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
         {shouldShowMore && (
           <li className="gradient-up absolute inset-x-0 bottom-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
             <AppButton
-              title="Показать еще"
+              title="Показати ще"
               onClick={handleShowMore}
               className="text-subtitle hover:text-bg relative mb-12 rounded-2xl pr-8 text-green-800 transition-colors duration-300 hover:bg-green-800"
             >
-              Показать еще
+              Показати ще
               <ArrowDown
                 className="absolute top-1/2 right-1 -translate-y-1/2"
                 size={22}
@@ -85,7 +85,7 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
       {showFilteredProducts && (
         <div className="flex flex-col items-center gap-3">
           <div className="text-muted mx-0 my-3 text-center">
-            Ничего не найдено. Измените фильтры.
+            Нічого не знайдено. Змініть фільтри.
           </div>
         </div>
       )}

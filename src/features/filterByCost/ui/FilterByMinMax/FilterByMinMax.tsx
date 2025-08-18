@@ -20,7 +20,7 @@ const FilterByMinMax = () => {
   return (
     <div className="flex gap-2">
       <label htmlFor="minPrice" className="sr-only">
-        Минимальная стоимость
+        Мінімальна вартість
       </label>
       <input
         value={minValue ?? ""}
@@ -29,10 +29,10 @@ const FilterByMinMax = () => {
         id="minPrice"
         type="number"
         min="0"
-        placeholder="Мин"
+        placeholder="Мін"
       />
       <label htmlFor="maxPrice" className="sr-only">
-        Максимальная стоимость
+        Максимальна вартість
       </label>
       <input
         value={maxValue ?? ""}

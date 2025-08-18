@@ -47,9 +47,9 @@ const parseProductName = (name: string, params: IProductParam[]) => {
   const REGEXP_POWER = /(\d+)\s*(Вт|W)/gi;
   const REGEXP_VOLTAGE = /(\d+)\s*V/gi;
   const REGEXP_TEMP = /(\d+)\s*K/gi;
-  const POWER_ID = "Мощность, Вт";
-  const TEMP_ID = "Цветовая температура";
-  const VOLTAGE_ID = "Напряжение, В";
+  const POWER_ID = "Потужність, Вт";
+  const TEMP_ID = "Колірна температура";
+  const VOLTAGE_ID = "Напруга, В";
   const SOCKET_ID = "Цоколь";
 
   const power = getParam(params, POWER_ID);
@@ -99,6 +99,7 @@ const isProductMatch = (query: string, params: IParams) => {
 
 const getPreparedProducts = (products: IProduct[], option: IOptions) => {
   const { query, categoryId, minCost, maxCost, brand } = option;
+
   let filteredProducts: IProduct[] = [...products];
 
   if (query) {
@@ -183,7 +184,14 @@ const fetchProducts = async () => {
     productsData = parser.parse(xmlText);
 
     const sortedItems = [...productsData.yml_catalog.items.item]
-      .filter((item: IProduct) => item.price !== 0)
+      .filter((item: IProduct) => {
+        const removedZeroCost = item.price !== 0;
+
+        return (
+          removedZeroCost &&
+          !globalConfig.deletedGoodsIds.includes(String(item.categoryId))
+        );
+      })
       .sort(
         (a: IProduct, b: IProduct) =>
           productOrder[a.vendor] - productOrder[b.vendor],
