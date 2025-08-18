@@ -5,16 +5,15 @@ import { Hero } from "./(ui)";
 import { InfoCard, ProductListWrapper } from "@/widgets";
 
 export const metadata: Metadata = {
-  title:
-    "Освещение Feron, Ardero, Ledcoin, Linef, Levistella • mriya-svitla.com.ua",
+  title: "Освітлення Feron, Ardero, Ledcoin, Лінеф, Levistella • Вторге.",
   description:
-    "Купить LED лампы и светильники Feron, Ardero, Ledcoin, Linef, Levistella в Украине. Люстры, трековые, встроенные, уличные и офисные решения. Заказывайте качественное освещение в Mriya Svitla — официальные бренды, быстрая доставка и консультация.",
+    "Купити LED лампи та світильники Feron, Ardero, Ledcoin, Linef, Levistella в Україні. Люстри, трекові, вбудовані, вуличні та офісні рішення. Замовляйте якісне освітлення в Mriya Svitla - офіційні бренди, швидка доставка та консультація.",
   keywords: [
-    "купить LED лампу Feron",
-    "освещение Ardero",
-    "светильники Ledcoin",
-    "Linef Украина",
-    "люстры Levistella",
+    "купити LED лампу Feron",
+    "освітлення Ardero",
+    "світильники Ledcoin",
+    "Linef Україна",
+    "люстри Levistella",
   ],
 };
 
