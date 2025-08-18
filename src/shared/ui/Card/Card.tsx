@@ -45,7 +45,7 @@ const Card: FC<TCardProps> = ({ product }) => {
           )}
           alt={name}
           src={photoUrl}
-          width={300}
+          width={400}
           height={300}
           onLoad={() => setLoading(false)}
           loading="lazy"

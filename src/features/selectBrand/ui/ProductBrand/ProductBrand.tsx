@@ -15,18 +15,24 @@ const ProductBrand = () => {
   };
 
   return (
-    <select
-      onChange={(e) => handleBrand(e.target.value)}
-      className="field"
-      value={brand ?? ""}
-    >
-      <option value="">Все бренды</option>
-      {brandCatigory.map((brand) => (
-        <option key={brand.id} value={brand.slug}>
-          {brand.name}
-        </option>
-      ))}
-    </select>
+    <>
+      <label htmlFor="brandSelect" className="sr-only">
+        Бренд
+      </label>
+      <select
+        id="brandSelect"
+        onChange={(e) => handleBrand(e.target.value)}
+        className="field"
+        value={brand ?? ""}
+      >
+        <option value="">Все бренды</option>
+        {brandCatigory.map((brand) => (
+          <option key={brand.id} value={brand.slug}>
+            {brand.name}
+          </option>
+        ))}
+      </select>
+    </>
   );
 };
 

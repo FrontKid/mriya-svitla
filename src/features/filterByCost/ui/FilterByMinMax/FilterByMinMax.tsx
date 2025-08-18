@@ -19,28 +19,30 @@ const FilterByMinMax = () => {
   };
   return (
     <div className="flex gap-2">
-      <label className="w-full">
-        <input
-          value={minValue ?? ""}
-          onChange={(e) => handleMin(e.target.value)}
-          className="field"
-          id="minPrice"
-          type="number"
-          min="0"
-          placeholder="Мин"
-        />
+      <label htmlFor="minPrice" className="sr-only">
+        Минимальная стоимость
       </label>
-      <label className="w-full">
-        <input
-          value={maxValue ?? ""}
-          onChange={(e) => handleMax(e.target.value)}
-          className="field"
-          id="maxPrice"
-          type="number"
-          min="0"
-          placeholder="Макс"
-        />
+      <input
+        value={minValue ?? ""}
+        onChange={(e) => handleMin(e.target.value)}
+        className="field"
+        id="minPrice"
+        type="number"
+        min="0"
+        placeholder="Мин"
+      />
+      <label htmlFor="maxPrice" className="sr-only">
+        Максимальная стоимость
       </label>
+      <input
+        value={maxValue ?? ""}
+        onChange={(e) => handleMax(e.target.value)}
+        className="field"
+        id="maxPrice"
+        type="number"
+        min="0"
+        placeholder="Макс"
+      />
     </div>
   );
 };

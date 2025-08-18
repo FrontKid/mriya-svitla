@@ -21,19 +21,24 @@ const ProductCategory: FC<IProductCategoryProps> = ({ categories }) => {
   };
 
   return (
-    <select
-      id="category"
-      onChange={(e) => handleCategory(e.target.value)}
-      value={category ?? ""}
-      className="field"
-    >
-      <option value="">Все товары</option>
-      {categories.map(({ text, id }) => (
-        <option key={id} value={id}>
-          {text}
-        </option>
-      ))}
-    </select>
+    <>
+      <label className="sr-only" htmlFor="category">
+        Категории
+      </label>
+      <select
+        id="category"
+        onChange={(e) => handleCategory(e.target.value)}
+        value={category ?? ""}
+        className="field"
+      >
+        <option value="">Все товары</option>
+        {categories.map(({ text, id }) => (
+          <option key={id} value={id}>
+            {text}
+          </option>
+        ))}
+      </select>
+    </>
   );
 };
 
