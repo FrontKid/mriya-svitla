@@ -40,7 +40,7 @@ const ProductListWrapper = async () => {
 
       {error && (
         <div className="flex flex-col items-center justify-center py-10">
-          <h2 className="text-subtitle pb-5 font-bold">
+          <h2 className="text-subtitle pb-5 text-center font-bold">
             Сейчас товары недоступны, попробуйте позже!
           </h2>
           <AppLink

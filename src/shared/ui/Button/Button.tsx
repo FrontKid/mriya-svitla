@@ -13,6 +13,7 @@ type TLinkProps = {
   target?: TTarget;
   title: string;
   className?: string;
+  onClick?: () => void;
 };
 
 type TButtonProps = {
@@ -29,12 +30,14 @@ const AppLink: FC<TLinkProps> = ({
   type,
   href,
   title,
+  onClick,
   target,
 }) => {
   return (
     <Link
       href={href}
       title={title}
+      onClick={onClick}
       target={target}
       className={clsx(className, {
         "btn px-4.5 py-3": type === "btn",

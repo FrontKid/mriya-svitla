@@ -11,13 +11,13 @@ const Hero = () => {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <section className="section-container pb-12">
-      <div className="flex items-center gap-6">
-        <div>
-          <h1 className="text-title mb-2 leading-12 font-extrabold">
+    <section className="section-container pb-8 sm:pb-12">
+      <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
+        <div className="w-full md:w-1/2">
+          <h1 className="mb-3 text-2xl leading-snug font-extrabold sm:text-3xl sm:leading-10 lg:text-4xl lg:leading-[3rem]">
             Каталог освещения для бизнеса и дома
           </h1>
-          <p className="text-muted mb-4">
+          <p className="text-muted mb-4 text-sm sm:text-base lg:text-lg">
             Проверенные бренды, быстрые поставки, помощь в подборе. Трековые,
             встраиваемые, уличные, офисные решения. Работаем c розницей и оптом.
           </p>
@@ -27,14 +27,20 @@ const Hero = () => {
             </AppLink>
           </div>
         </div>
-        <div className="relative w-full">
-          {isLoading && <ImageSceleton classname="rounded-2xl h-[346px]" />}
+
+        <div className="relative w-full md:w-1/2">
+          {isLoading && (
+            <ImageSceleton classname="rounded-2xl h-[240px] sm:h-[300px] md:h-[346px]" />
+          )}
           <Image
             title="Освещение баннер"
-            className={clsx("border-line rounded-2xl border border-solid", {
-              "opacity-0": isLoading,
-              "opacity-100": !isLoading,
-            })}
+            className={clsx(
+              "border-line w-full rounded-2xl border border-solid transition-opacity duration-500",
+              {
+                "opacity-0": isLoading,
+                "opacity-100": !isLoading,
+              },
+            )}
             width={483}
             height={363}
             priority

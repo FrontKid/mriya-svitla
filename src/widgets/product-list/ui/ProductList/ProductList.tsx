@@ -33,13 +33,7 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
     globalConfig.PRODUCTS_PER_PAGE,
   );
 
-  const options = {
-    query,
-    brand,
-    categoryId,
-    minCost,
-    maxCost,
-  };
+  const options = { query, brand, categoryId, minCost, maxCost };
 
   const preparedProducts = getPreparedProducts(products, options).slice(
     0,
@@ -47,10 +41,8 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
   );
 
   const shouldShowMore = productsPerPage <= preparedProducts.length;
-
   const hasParams =
     !!query || !!brand || !!categoryId || !!minCost || !!maxCost;
-
   const showFilteredProducts =
     hasParams && !getPreparedProducts(products, options).length;
 
@@ -68,20 +60,21 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
         "pt-12": showFilteredProducts,
       })}
     >
-      <ul className="relative grid grid-cols-[1fr_1fr_1fr] gap-3">
+      <ul className="relative grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
         {preparedProducts.map((product) => (
           <Card key={product.model} product={product} />
         ))}
+
         {shouldShowMore && (
-          <li className="gradient-up absolute right-0 bottom-0 left-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
+          <li className="gradient-up absolute inset-x-0 bottom-0 flex h-[250px] w-full items-end justify-center rounded-2xl font-bold backdrop-blur-[1px]">
             <AppButton
               title="Показать еще"
               onClick={handleShowMore}
-              className="text-subtitle hover:text-bg relative mb-12 rounded-2xl pr-10 text-green-800 transition-colors duration-300 hover:bg-green-800"
+              className="text-subtitle hover:text-bg relative mb-12 rounded-2xl pr-8 text-green-800 transition-colors duration-300 hover:bg-green-800"
             >
               Показать еще
               <ArrowDown
-                className="absolute top-1/2 right-0 -translate-1/2"
+                className="absolute top-1/2 right-1 -translate-y-1/2"
                 size={22}
               />
             </AppButton>

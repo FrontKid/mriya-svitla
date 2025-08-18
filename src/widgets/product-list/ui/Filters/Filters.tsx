@@ -15,7 +15,7 @@ interface IFiltersProps {
 const Filters: FC<IFiltersProps> = ({ categories }) => {
   return (
     <section id="catalog" className="section-container">
-      <form className="card text text-md mb-3 grid grid-cols-[2fr_1fr_1fr_1fr] gap-3">
+      <form className="card text text-md mb-3 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <Search />
         <ProductBrand />
         <ProductCategory categories={categories} />

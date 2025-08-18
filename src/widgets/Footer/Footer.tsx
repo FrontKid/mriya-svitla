@@ -9,7 +9,8 @@ const currentYear = new Date().getFullYear();
 const Footer = () => (
   <footer id="contacts">
     <div className="section-container">
-      <div className="card mb-13 grid grid-cols-[1fr_1fr] gap-4">
+      <div className="card mb-12 grid grid-cols-1 gap-4 md:grid-cols-[1fr_1fr]">
+        {/* Контакты */}
         <div className="flex flex-col justify-center">
           <h2 className="mb-3 text-2xl font-bold">Связаться с нами</h2>
           <ul className="mx-0 mt-2 mb-0 flex flex-col gap-4 p-0 text-blue-400">
@@ -45,6 +46,8 @@ const Footer = () => (
             <li className="text-text">📍Одесса • Доставка по Украине и ЕС</li>
           </ul>
         </div>
+
+        {/* Картинка */}
         <div className="bg-card-product border-line grid min-h-[220px] place-items-center rounded-2xl border border-solid text-gray-400">
           <Image
             title="Домашнее освещение"
@@ -58,10 +61,11 @@ const Footer = () => (
       </div>
     </div>
 
+    {/* Подвал */}
     <div className="before:bg-line relative py-7 text-center before:absolute before:top-0 before:left-0 before:h-[1px] before:w-full">
       <span className="before:content-['©']">{currentYear}</span>
       &nbsp;{EContacts.NAME} • Освещение. Все права защищены.
-      <p className="text-[14px]">
+      <p className="mt-1 text-[14px]">
         <AppLink
           title="modern icons"
           type="simple"

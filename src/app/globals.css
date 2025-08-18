@@ -15,6 +15,7 @@
   --text-subtitle: 18px;
   --text-md: 13px;
   --backdrop-saturate-header: 180%;
+  --breakpoint-xsm: 25rem;
 }
 
 body {

@@ -19,7 +19,7 @@ const FilterByMinMax = () => {
   };
   return (
     <div className="flex gap-2">
-      <label>
+      <label className="w-full">
         <input
           value={minValue ?? ""}
           onChange={(e) => handleMin(e.target.value)}
@@ -30,7 +30,7 @@ const FilterByMinMax = () => {
           placeholder="Мин"
         />
       </label>
-      <label>
+      <label className="w-full">
         <input
           value={maxValue ?? ""}
           onChange={(e) => handleMax(e.target.value)}

@@ -1,50 +1,166 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import clsx from "clsx";
 
 import { EContacts } from "@/shared/lib/contacts";
 import { formatPhone } from "@/shared/lib/helpers";
 import { AppLink } from "@/shared/ui/Button";
 
-const Header = () => (
-  <header className="backdrop-saturate-header border-b-line border-solid; sticky top-0 z-5 border-b bg-white/10 backdrop-blur-sm">
-    <div className="container flex items-center justify-between py-2.5">
-      <Link href="#page-top" className="flex items-center gap-3">
-        <div className="grid h-9 w-9 place-items-center rounded-xl bg-black font-extrabold text-white">
-          OK
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [isOpen]);
+
+  return (
+    <>
+      <header className="border-line sticky top-0 z-50 border-b border-solid bg-white/80 backdrop-blur-sm backdrop-saturate-150">
+        <div className="container flex items-center justify-between py-2.5">
+          <Link
+            href="#page-top"
+            className={clsx("flex items-center gap-3", {
+              hidden: isOpen,
+            })}
+          >
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-black font-extrabold text-white">
+              OK
+            </div>
+            <div>
+              <div className="text-base font-extrabold sm:text-lg">
+                Освещение • {EContacts.NAME}
+              </div>
+              <div className="text-muted text-xs sm:text-sm">
+                Feron • Linef • LeviStella
+              </div>
+            </div>
+          </Link>
+
+          <nav>
+            <ul className="hidden items-center gap-4 md:flex lg:gap-6">
+              <li>
+                <Link title="Каталог" className="linkStyle" href="#catalog">
+                  Каталог
+                </Link>
+              </li>
+              <li>
+                <Link title="Услуги" className="linkStyle" href="#services">
+                  Услуги
+                </Link>
+              </li>
+              <li>
+                <Link title="Контакты" className="linkStyle" href="#contacts">
+                  Контакты
+                </Link>
+              </li>
+              <li>
+                <AppLink
+                  title="Номер телефона"
+                  type="btn"
+                  href={`tel:${EContacts.PHONE_NUMBER}`}
+                >
+                  {formatPhone(EContacts.PHONE_NUMBER)}
+                </AppLink>
+              </li>
+            </ul>
+          </nav>
+
+          <button
+            className="border-line cursor-pointer rounded-lg border border-solid bg-transparent px-2.5 py-1.5 md:hidden"
+            onClick={() => setIsOpen(true)}
+            aria-label="Открыть меню"
+          >
+            ☰
+          </button>
         </div>
-        <div>
-          <div className="text-lg font-extrabold">
-            Освещение • {EContacts.NAME}
+      </header>
+
+      {isOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm md:hidden">
+          <div className="absolute inset-0" onClick={() => setIsOpen(false)} />
+
+          <div className="relative ml-auto flex h-full w-4/5 max-w-xs flex-col bg-white px-5 pt-3 shadow-xl">
+            <button
+              className="absolute top-3 right-4 mb-6 cursor-pointer p-1 text-2xl"
+              onClick={() => setIsOpen(false)}
+              aria-label="Закрыть меню"
+            >
+              ✖
+            </button>
+
+            <Link
+              title="Освещение • Oleksandr"
+              href="#page-top"
+              className="mb-3 flex flex-col gap-3"
+              onClick={() => setIsOpen(false)}
+            >
+              <div className="grid h-9 w-9 place-items-center rounded-xl bg-black font-extrabold text-white">
+                OK
+              </div>
+              <div>
+                <div className="text-base font-extrabold sm:text-lg">
+                  Освещение • {EContacts.NAME}
+                </div>
+                <div className="text-muted text-xs sm:text-sm">
+                  Feron • Linef • LeviStella
+                </div>
+              </div>
+            </Link>
+
+            <nav>
+              <ul className="flex flex-col gap-4">
+                <li>
+                  <Link
+                    className="text-lg font-medium"
+                    href="#catalog"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Каталог
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-lg font-medium"
+                    href="#services"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Услуги
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="text-lg font-medium"
+                    href="#contacts"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Контакты
+                  </Link>
+                </li>
+
+                <li>
+                  <AppLink
+                    type="btn"
+                    title="Номер телефона"
+                    href={`tel:${EContacts.PHONE_NUMBER}`}
+                    onClick={() => setIsOpen(false)}
+                    className="text-center"
+                  >
+                    {formatPhone(EContacts.PHONE_NUMBER)}
+                  </AppLink>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <div className="text-muted text-xs">Feron • Linef • LeviStella</div>
         </div>
-      </Link>
-      <nav className="flex items-center gap-4">
-        <Link className="linkStyle" href="#catalog">
-          Каталог
-        </Link>
-        <Link className="linkStyle" href="#services">
-          Услуги
-        </Link>
-        <Link className="linkStyle" href="#contacts">
-          Контакты
-        </Link>
-        <AppLink
-          title="Номер телефона"
-          type="btn"
-          href={`tel:${EContacts.PHONE_NUMBER}`}
-        >
-          {formatPhone(EContacts.PHONE_NUMBER)}
-        </AppLink>
-      </nav>
-      <button
-        className="border-line hidden rounded-lg border border-solid bg-transparent px-2.5 py-1.5"
-        id="navToggle"
-        aria-label="Открыть меню"
-      >
-        ☰
-      </button>
-    </div>
-  </header>
-);
+      )}
+    </>
+  );
+};
 
 export { Header };
