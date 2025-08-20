@@ -18,9 +18,12 @@ const ProductListWrapper = async () => {
 
   const preparedCategories: ICategories[] = category.filter(
     (category: ICategories) => {
+      const removeDublicateCategory = category.id !== "57";
+
       return (
         !!category.parentId &&
-        !globalConfig.deletedGoodsIds.includes(category.id)
+        !globalConfig.deletedGoodsIds.includes(category.id) &&
+        removeDublicateCategory
       );
     },
   );
