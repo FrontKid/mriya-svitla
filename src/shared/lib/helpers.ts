@@ -91,7 +91,9 @@ const isProductMatch = (query: string, params: IParams) => {
 
   const filteredByName = nameLowerCased.includes(qeuryLowerCased);
   const filteredByBrand = brandLowerCased.includes(qeuryLowerCased);
-  const filteredByModel = params.model.includes(qeuryLowerCased);
+  const filteredByModel =
+    params.model.includes(qeuryLowerCased) ||
+    `0${params.model}`.includes(qeuryLowerCased);
   const filteredByCode = params.code.includes(qeuryLowerCased);
 
   return filteredByName || filteredByBrand || filteredByModel || filteredByCode;

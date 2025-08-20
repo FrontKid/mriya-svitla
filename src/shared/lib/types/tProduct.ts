@@ -16,6 +16,7 @@ interface IProduct {
   socket: TParam;
   voltage: TParam;
   categoryId: number;
+  vendorCode: number;
   model: number;
   param: IProductParam[];
   upc: number;

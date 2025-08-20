@@ -24,6 +24,8 @@ const Card: FC<TCardProps> = ({ product }) => {
     price,
     colorTemperature,
     socket,
+    model,
+    vendorCode,
     voltage,
     available,
   } = product;
@@ -61,6 +63,12 @@ const Card: FC<TCardProps> = ({ product }) => {
       </div>
       <span className="text-muted text-md">{vendor}</span>
       <h2 className="text-subtitle m-0 font-bold">{name}</h2>
+      <div>
+        {model && (
+          <p>Модель: {String(model).length < 5 ? `0${model}` : model}</p>
+        )}
+        {vendorCode && <p>Код: {vendorCode} </p>}
+      </div>
       <div className="flex flex-wrap gap-1.5">
         {power && <Tag tagName={power} />}
         {colorTemperature && <Tag tagName={colorTemperature} />}
