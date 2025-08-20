@@ -3,6 +3,7 @@ import { Metadata } from "next/types";
 import { Hero } from "./(ui)";
 
 import { InfoCard, ProductListWrapper } from "@/widgets";
+import { ScrollToTopButton } from "@/features";
 
 export const metadata: Metadata = {
   title: "Освітлення Feron, Ardero, Ledcoin, Лінеф, Levistella • Вторге.",
@@ -23,6 +24,7 @@ export default function Home() {
       <Hero />
       <ProductListWrapper />
       <InfoCard />
+      <ScrollToTopButton />
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Inter, Syne } from "next/font/google";
 
 const inter = Inter({
   subsets: ["cyrillic", "latin"],
@@ -6,4 +6,10 @@ const inter = Inter({
   weight: ["400", "700", "800"],
 });
 
-export { inter };
+const syne = Syne({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "700", "800"],
+});
+
+export { inter, syne };

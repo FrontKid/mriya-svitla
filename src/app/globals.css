@@ -65,6 +65,17 @@ body {
   background: linear-gradient(to top, var(--color-bg) 30%, rgba(255, 255, 255, 0) 100%);
 }
 
+.button-up {
+  @apply hidden xl:block text-[25px] fixed hover:text-white right-6 2xl:right-14 bottom-14 cursor-pointer rounded-full p-9 font-bold duration-300 hover:bg-text z-10;
+}
+.button-up svg path {
+  @apply duration-300;
+}
+
+.button-up:hover svg path {
+  @apply fill-white;
+}
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
