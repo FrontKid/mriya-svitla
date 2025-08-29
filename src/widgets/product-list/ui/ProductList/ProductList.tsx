@@ -21,13 +21,14 @@ type TProductListProps = {
 };
 
 const ProductList: FC<TProductListProps> = ({ products }) => {
-  const [{ query, brand, categoryId, minCost, maxCost }] = useQueryStates({
-    [searchConfig.PARAM_NAME]: parseAsString.withDefault(""),
-    [brandConfig.PARAM_NAME]: parseAsString.withDefault(""),
-    [productCategoryConfig.PARAM_NAME]: parseAsString.withDefault(""),
-    [minMaxConfig.PARAM_NAME_MIN]: parseAsString.withDefault(""),
-    [minMaxConfig.PARAM_NAME_MAX]: parseAsString.withDefault(""),
-  });
+  const [{ query, brand, categoryId, minCost, maxCost }, setQueryStates] =
+    useQueryStates({
+      [searchConfig.PARAM_NAME]: parseAsString.withDefault(""),
+      [brandConfig.PARAM_NAME]: parseAsString.withDefault(""),
+      [productCategoryConfig.PARAM_NAME]: parseAsString.withDefault(""),
+      [minMaxConfig.PARAM_NAME_MIN]: parseAsString.withDefault(""),
+      [minMaxConfig.PARAM_NAME_MAX]: parseAsString.withDefault(""),
+    });
 
   const [productsPerPage, setProductsPerPage] = useState(
     globalConfig.PRODUCTS_PER_PAGE,
@@ -52,6 +53,18 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
         (pageCount) => pageCount + globalConfig.PRODUCTS_PER_PAGE,
       );
     }
+  };
+
+  const resetFilters = () => {
+    setQueryStates({
+      [searchConfig.PARAM_NAME]: "",
+      [brandConfig.PARAM_NAME]: "",
+      [productCategoryConfig.PARAM_NAME]: "",
+      [minMaxConfig.PARAM_NAME_MIN]: "",
+      [minMaxConfig.PARAM_NAME_MAX]: "",
+    });
+
+    setProductsPerPage(globalConfig.PRODUCTS_PER_PAGE);
   };
 
   return (
@@ -83,10 +96,18 @@ const ProductList: FC<TProductListProps> = ({ products }) => {
       </ul>
 
       {showFilteredProducts && (
-        <div className="flex flex-col items-center gap-3">
-          <div className="text-muted mx-0 my-3 text-center">
-            Нічого не знайдено. Змініть фільтри.
-          </div>
+        <div className="flex flex-col items-center">
+          <h3 className="text-muted mx-0 my-3 text-center font-bold">
+            Нічого не знайдено. Змініть параметри пошуку або
+          </h3>
+          <AppButton
+            title="Скинути фільтри"
+            onClick={resetFilters}
+            type="simple"
+            className="underline transition-colors duration-300 hover:text-green-800"
+          >
+            Скинути фільтри
+          </AppButton>
         </div>
       )}
     </section>
